@@ -8,12 +8,14 @@
   <div class="container">
     <h1>🎯 BDT Full Predictor</h1>
     <div class="output">
+      <p><strong>Selected Timer:</strong> <span id="timer-label">None</span></p>
+      <p><strong>Prediction Type:</strong> <span id="prediction-type">-</span></p>
       <p><strong>Predicted Color:</strong> <span id="color">-</span></p>
       <p><strong>Predicted Number:</strong> <span id="number">-</span></p>
       <p><strong>Predicted Type:</strong> <span id="type">-</span> <small>(Big / Small)</small></p>
     </div>
     <div class="buttons">
-      <button onclick="generatePrediction()">🔁 Generate Now</button>
+      <button onclick="generatePrediction('Manual')">🔁 Generate Now</button>
       <button onclick="setTimer(30)">⏱️ Every 30 Seconds</button>
       <button onclick="setTimer(60)">⏱️ Every 1 Minute</button>
     </div>
