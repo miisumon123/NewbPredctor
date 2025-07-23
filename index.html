@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BDG Color Predictor</title>
+  <title>BDG Full Predictor</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>🎯 BDG Predictor</h1>
+    <h1>🎯 BDT Full Predictor</h1>
     <div class="output">
-      <p><strong>Next Round:</strong> <span id="round">-</span></p>
       <p><strong>Predicted Color:</strong> <span id="color">-</span></p>
+      <p><strong>Predicted Number:</strong> <span id="number">-</span></p>
+      <p><strong>Predicted Type:</strong> <span id="type">-</span> <small>(Big / Small)</small></p>
     </div>
     <div class="buttons">
       <button onclick="generatePrediction()">🔁 Generate Now</button>
       <button onclick="setTimer(30)">⏱️ Every 30 Seconds</button>
       <button onclick="setTimer(60)">⏱️ Every 1 Minute</button>
     </div>
-    <p id="status" style="margin-top:10px;color:green;"></p>
+    <p id="status" style="margin-top:10px;color:lightgreen;"></p>
+    <p id="countdown" style="margin-top:5px;color:orange;"></p>
   </div>
 
   <script src="script.js"></script>
