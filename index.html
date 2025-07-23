@@ -1,64 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Color Predictor</title>
+  <title>BDG Color Predictor</title>
+  <meta charset="UTF-8">
   <style>
     body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 20px;
-      background-color: #111;
+      font-family: Arial, sans-serif;
+      background: #0f0f0f;
       color: white;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #00ff99;
+    }
+    .result {
+      font-size: 24px;
+      margin-top: 20px;
     }
     button {
       padding: 10px 20px;
       margin: 10px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
       font-size: 16px;
-      border-radius: 10px;
     }
-    .prediction {
-      margin-top: 30px;
-      font-size: 24px;
+    button:hover {
+      background: #555;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h2>🎯 BDG Color Predictor</h2>
+  <h1>🎯 BDG Color Predictor</h1>
 
-  <button onclick="setPrediction('30s')">30 Seconds</button>
-  <button onclick="setPrediction('1m')">1 Minute</button>
+  <div>
+    <button onclick="predictNow()">🔁 Predict Now</button>
+    <button onclick="setTimer(30)">🕒 Auto 30s</button>
+    <button onclick="setTimer(60)">🕐 Auto 1min</button>
+    <button onclick="stopTimer()">🛑 Stop</button>
+  </div>
 
-  <div class="prediction" id="predictionText"></div>
+  <div class="result" id="result">No prediction yet</div>
 
   <script>
-    function generatePrediction() {
-      const number = Math.floor(Math.random() * 10) + 1;
-      const colors = ['Green', 'Red', 'Violet'];
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      return `${number} - ${color}`;
+    let interval = null;
+
+    function getColor(num) {
+      if (num === 0 || num === 5) return "Violet";
+      if ([1, 3, 7, 9].includes(num)) return "Green";
+      if ([2, 4, 6, 8].includes(num)) return "Red";
+      return "Unknown";
     }
 
-    function setPrediction(duration) {
-      const prediction = generatePrediction();
-      localStorage.setItem("selectedTime", duration);
-      localStorage.setItem("prediction", prediction);
-      showPrediction();
+    function getSize(num) {
+      if (num >= 1 && num <= 4) return "Small";
+      if (num >= 5 && num <= 9) return "Big";
+      return "-";
     }
 
-    function showPrediction() {
-      const duration = localStorage.getItem("selectedTime");
-      const prediction = localStorage.getItem("prediction");
-      const box = document.getElementById("predictionText");
-      if (duration && prediction) {
-        box.innerHTML = `<b>${duration === '30s' ? '30 Seconds' : '1 Minute'} Prediction:</b><br><br> ${prediction}`;
-      } else {
-        box.innerHTML = '';
-      }
+    function predictNow() {
+      const num = Math.floor(Math.random() * 10); // 0–9
+      const color = getColor(num);
+      const size = getSize(num);
+      const resultText = `Predicted Number: <b>${num}</b><br>🎨 Color: <b>${color}</b><br>📏 Size: <b>${size}</b>`;
+      document.getElementById("result").innerHTML = resultText;
+      localStorage.setItem("bdg_prediction", resultText);
     }
 
-    // Show saved prediction even after refresh
-    showPrediction();
+    function setTimer(seconds) {
+      stopTimer();
+      predictNow();
+      interval = setInterval(predictNow, seconds * 1000);
+    }
+
+    function stopTimer() {
+      if (interval) clearInterval(interval);
+    }
+
+    window.onload = () => {
+      const saved = localStorage.getItem("bdg_prediction");
+      if (saved) document.getElementById("result").innerHTML = saved;
+    }
   </script>
 
 </body>
