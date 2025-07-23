@@ -1,28 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BDG Full Predictor</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Color Predictor</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+      background-color: #111;
+      color: white;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+    }
+    .prediction {
+      margin-top: 30px;
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎯 BDT Full Predictor</h1>
-    <div class="output">
-      <p><strong>Selected Timer:</strong> <span id="timer-label">None</span></p>
-      <p><strong>Prediction Type:</strong> <span id="prediction-type">-</span></p>
-      <p><strong>Predicted Color:</strong> <span id="color">-</span></p>
-      <p><strong>Predicted Number:</strong> <span id="number">-</span></p>
-      <p><strong>Predicted Type:</strong> <span id="type">-</span> <small>(Big / Small)</small></p>
-    </div>
-    <div class="buttons">
-      <button onclick="generatePrediction('Manual')">🔁 Generate Now</button>
-      <button onclick="setTimer(30)">⏱️ Every 30 Seconds</button>
-      <button onclick="setTimer(60)">⏱️ Every 1 Minute</button>
-    </div>
-    <p id="status" style="margin-top:10px;color:lightgreen;"></p>
-    <p id="countdown" style="margin-top:5px;color:orange;"></p>
-  </div>
 
-  <script src="script.js"></script>
+  <h2>🎯 BDG Color Predictor</h2>
+
+  <button onclick="setPrediction('30s')">30 Seconds</button>
+  <button onclick="setPrediction('1m')">1 Minute</button>
+
+  <div class="prediction" id="predictionText"></div>
+
+  <script>
+    function generatePrediction() {
+      const number = Math.floor(Math.random() * 10) + 1;
+      const colors = ['Green', 'Red', 'Violet'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      return `${number} - ${color}`;
+    }
+
+    function setPrediction(duration) {
+      const prediction = generatePrediction();
+      localStorage.setItem("selectedTime", duration);
+      localStorage.setItem("prediction", prediction);
+      showPrediction();
+    }
+
+    function showPrediction() {
+      const duration = localStorage.getItem("selectedTime");
+      const prediction = localStorage.getItem("prediction");
+      const box = document.getElementById("predictionText");
+      if (duration && prediction) {
+        box.innerHTML = `<b>${duration === '30s' ? '30 Seconds' : '1 Minute'} Prediction:</b><br><br> ${prediction}`;
+      } else {
+        box.innerHTML = '';
+      }
+    }
+
+    // Show saved prediction even after refresh
+    showPrediction();
+  </script>
+
 </body>
 </html>
