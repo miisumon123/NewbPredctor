@@ -1,75 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Apple Predictor Tester</title>
-  <style>
-    body {
-      background: #111;
-      color: #fff;
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 40px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 80px);
-      gap: 15px;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    .apple {
-      width: 80px;
-      height: 80px;
-      font-size: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #222;
-      border: 2px solid #555;
-      border-radius: 10px;
-    }
-    .safe {
-      background-color: #0f0;
-    }
-  </style>
+  <title>BDG Color Predictor</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="container">
+    <h1>🎯 BDG Predictor</h1>
+    <div class="output">
+      <p><strong>Next Round:</strong> <span id="round">-</span></p>
+      <p><strong>Predicted Color:</strong> <span id="color">-</span></p>
+    </div>
+    <div class="buttons">
+      <button onclick="generatePrediction()">🔁 Generate Now</button>
+      <button onclick="setTimer(30)">⏱️ Every 30 Seconds</button>
+      <button onclick="setTimer(60)">⏱️ Every 1 Minute</button>
+    </div>
+    <p id="status" style="margin-top:10px;color:green;"></p>
+  </div>
 
-  <h1>🍏 Apple Predictor Test</h1>
-  <button onclick="loadApples()">🔄 Load Apples</button>
-  <div id="grid" class="grid"></div>
-
-  <script>
-    async function loadApples() {
-      const url = "https://thanox.free.nf/api/apple/GetCurrentWinGame.php"; // change if needed
-      const res = await fetch(url);
-      const data = await res.json();
-
-      const safe = data.safe || [];
-      const grid = document.getElementById('grid');
-      grid.innerHTML = '';
-
-      for (let row = 0; row < 3; row++) {
-        for (let col = 1; col <= 3; col++) {
-          const cell = document.createElement('div');
-          cell.className = 'apple';
-          cell.innerHTML = '🍎';
-
-          // Mark safe apple
-          if (safe[row] === col) {
-            cell.classList.add('safe');
-            cell.innerHTML = '🍏';
-          }
-
-          grid.appendChild(cell);
-        }
-      }
-    }
-
-    // Load on start
-    loadApples();
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
