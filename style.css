@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0e0f1a;
+  color: white;
+  text-align: center;
+  padding: 30px;
+}
+.container {
+  background: #1a1b2f;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 0 20px rgba(0,255,100,0.3);
+}
+.output p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  background: #00c853;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.buttons button:hover {
+  background: #00e676;
+}
